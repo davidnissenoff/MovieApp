@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -50,6 +53,7 @@ public class MovieAdapter extends BaseAdapter {
             holder.descriptionTextView = convertView.findViewById(R.id.description_text_view);
             holder.characterTextView = convertView.findViewById(R.id.characters_text_view);
             holder.movieImageView = convertView.findViewById(R.id.movie_image);
+            holder.hasSeenTextView = convertView.findViewById(R.id.has_seen_text_view);
             convertView.setTag(holder);
         }
         else {
@@ -66,11 +70,17 @@ public class MovieAdapter extends BaseAdapter {
         descriptionTextView.setText(movie.description);
         descriptionTextView.setTextSize(9);
 
-        characterTextView.setText(movie.characters);
+
+
+
 
         characterTextView.setTextSize(14);
 
-
+        String character_1 = movie.main_characters.get(0);
+        String character_2 = movie.main_characters.get(1);
+        String character_3 = movie.main_characters.get(2);
+        String charas = character_1 + ", " + character_2 + ", " + character_3;
+        characterTextView.setText(charas);
         Picasso.with(mContext).load(movie.imageUrl).into(movieImageView);
         return convertView;
     }
@@ -79,6 +89,7 @@ public class MovieAdapter extends BaseAdapter {
         public TextView descriptionTextView;
         public TextView characterTextView;
         public ImageView movieImageView;
+        public TextView hasSeenTextView;
     }
 
 }

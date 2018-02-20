@@ -32,10 +32,12 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView descriptionTextview;
     private TextView titleView;
     private ImageView posterView;
+    private TextView haveSeen;
     private Button submitButton;
     private boolean alreadySeen;
     private boolean wantSee;
     private boolean doNot;
+    private int pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +45,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         String title = this.getIntent().getExtras().getString("title");
         String poster = this.getIntent().getExtras().getString("poster");
         String description = this.getIntent().getExtras().getString("description");
-
+        pos = this.getIntent().getExtras().getInt("position");
         setTitle(title);
+        haveSeen = findViewById(R.id.has_seen_text_view);
         mScrollview = findViewById(R.id.scroll_View);
         descriptionTextview = findViewById(R.id.description_text_view);
         titleView = findViewById(R.id.movie_name_text_view);
@@ -66,6 +69,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 radioIntent.putExtra("has_seen", alreadySeen);
                 radioIntent.putExtra("want_to",wantSee);
                 radioIntent.putExtra("do_not",doNot);
+                radioIntent.putExtra("position", pos);
                 setResult(RESULT_OK, radioIntent);
                 finish(); // goes back to previous activity
 

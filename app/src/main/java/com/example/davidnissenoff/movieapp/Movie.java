@@ -14,7 +14,7 @@ public class Movie {
     public String title;
     public String imageUrl;
     public String description;
-    public String characters;
+    public ArrayList<String> main_characters;
     public String hasSeen;
 
     public static ArrayList<Movie> getMoviesFromFIle(String filename, Context context){
@@ -30,8 +30,18 @@ public class Movie {
                 movie.title = movies.getJSONObject(i).getString("title");
                 movie.description = movies.getJSONObject(i).getString("description");
                 movie.imageUrl = movies.getJSONObject(i).getString("poster");
-                movie.characters = movies.getJSONObject(i).getString("main_characters").replace("[", "").replace("\"", "").replace("]","").replace(",",", ");
 
+                JSONArray charas = movies.getJSONObject(i).getJSONArray("main_characters");
+                ArrayList<String>Characters = new ArrayList<>();
+                if (charas != null){
+                    int length = charas.length();
+                    for (int j = 0; j<length; j++){
+                        Characters.add(charas.get(j).toString());
+                    }
+                }
+
+                //movie.characters = movies.getJSONObject(i).getString("main_characters").replace("[", "").replace("\"", "").replace("]","").replace(",",", ");
+                movie.main_characters = Characters;
                 movieList.add(movie);
             }
         } catch (JSONException e){
