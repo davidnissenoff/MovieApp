@@ -53,17 +53,17 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="@string/has_seen"
-             android:onClick="onRadioButtonClicked1"/>
+             />
          <RadioButton android:id="@+id/radio_not_seen"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="@string/want_to"
-             android:onClick="onRadioButtonClicked2"/>
+             />
          <RadioButton android:id="@+id/do_not_like"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="@string/do_not"
-             android:onClick="onRadioButtonClicked3"/>
+             />
      </RadioGroup>
 
      <Button

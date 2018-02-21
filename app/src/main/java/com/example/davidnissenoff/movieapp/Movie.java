@@ -12,10 +12,12 @@ import java.util.ArrayList;
 
 public class Movie {
     public String title;
+    private int episode_no;
     public String imageUrl;
     public String description;
     public ArrayList<String> main_characters;
-    public String hasSeen;
+    public int hasSeen;
+    public String url;
 
     public static ArrayList<Movie> getMoviesFromFIle(String filename, Context context){
 
@@ -30,7 +32,7 @@ public class Movie {
                 movie.title = movies.getJSONObject(i).getString("title");
                 movie.description = movies.getJSONObject(i).getString("description");
                 movie.imageUrl = movies.getJSONObject(i).getString("poster");
-
+                movie.url = movies.getJSONObject(i).getString("url");
                 JSONArray charas = movies.getJSONObject(i).getJSONArray("main_characters");
                 ArrayList<String>Characters = new ArrayList<>();
                 if (charas != null){
@@ -66,5 +68,11 @@ public class Movie {
         }
 
         return json;
+    }
+    public int getHasSeen(){
+        return hasSeen;
+    }
+    public void setHasSeen(int hasSeen){
+        this.hasSeen = hasSeen;
     }
 }

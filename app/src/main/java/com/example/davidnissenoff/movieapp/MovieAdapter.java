@@ -34,17 +34,17 @@ public class MovieAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
-        return mMovieList.get(i);
+    public Object getItem(int position) {
+        return mMovieList.get(position);
     }
 
     @Override
-    public long getItemId(int i) {
-        return i;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
-    public View getView(int i, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null){
             convertView = mInflater.inflate(R.layout.list_item_movie, parent, false);
@@ -63,12 +63,13 @@ public class MovieAdapter extends BaseAdapter {
         TextView descriptionTextView = holder.descriptionTextView;
         TextView characterTextView = holder.characterTextView;
         ImageView movieImageView = holder.movieImageView;
-        Movie movie = (Movie) getItem(i);
+        TextView hasSeenTextView = holder.hasSeenTextView;
+        Movie movie = (Movie) getItem(position);
         titleTextView.setText(movie.title);
         titleTextView.setTextSize(20);
 
         descriptionTextView.setText(movie.description);
-        descriptionTextView.setTextSize(9);
+        descriptionTextView.setTextSize(11);
 
 
 
@@ -81,6 +82,25 @@ public class MovieAdapter extends BaseAdapter {
         String character_3 = movie.main_characters.get(2);
         String charas = character_1 + ", " + character_2 + ", " + character_3;
         characterTextView.setText(charas);
+        int seen = movie.getHasSeen();
+        switch (seen){
+            case 1:
+                hasSeenTextView.setText("Already seen");
+                break;
+            case 2:
+                hasSeenTextView.setText("Want to see");
+                break;
+            case 3:
+                hasSeenTextView.setText("Do not like");
+                break;
+            case 4:
+                hasSeenTextView.setText("Pick one");
+                break;
+            default:
+                hasSeenTextView.setText("Has Seen?");
+                break;
+        }
+
         Picasso.with(mContext).load(movie.imageUrl).into(movieImageView);
         return convertView;
     }

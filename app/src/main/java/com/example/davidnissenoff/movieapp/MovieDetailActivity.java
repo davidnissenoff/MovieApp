@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.AdapterView;
@@ -38,6 +39,11 @@ public class MovieDetailActivity extends AppCompatActivity {
     private boolean wantSee;
     private boolean doNot;
     private int pos;
+    private int check;
+    private RadioGroup mRadiogroup;
+    private RadioButton mHasSeenRadioButton;
+    private RadioButton mWantToSeeRadioButton;
+    private RadioButton mDontLikeRadioButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,18 +64,32 @@ public class MovieDetailActivity extends AppCompatActivity {
         titleView.setTextSize(35);
         descriptionTextview.setTextSize(20);
         submitButton = (Button) findViewById(R.id.submit_button);
+        mRadiogroup = findViewById(R.id.radioGroup);
+        mHasSeenRadioButton = findViewById(R.id.radio_seen);
+        mWantToSeeRadioButton = findViewById(R.id.radio_not_seen);
+        mDontLikeRadioButton = findViewById(R.id.do_not_like);
+        mRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (i == R.id.radio_seen){
+                    check = 1;
+                }else if(i == R.id.radio_not_seen){
+                    check = 2;
+                }else if(i == R.id.do_not_like){
+                    check = 3;
 
-        submitButton.setOnClickListener(new AdapterView.OnClickListener() {
+
+                }
+            }
+        });
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 // construct intent
                 // send back to main activity
 
                 Intent radioIntent = new Intent();
-                radioIntent.putExtra("has_seen", alreadySeen);
-                radioIntent.putExtra("want_to",wantSee);
-                radioIntent.putExtra("do_not",doNot);
-                radioIntent.putExtra("position", pos);
+                radioIntent.putExtra("hasSeen", check);
                 setResult(RESULT_OK, radioIntent);
                 finish(); // goes back to previous activity
 
@@ -77,17 +97,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
 
     }
-    public void onRadioButtonClicked1 (View view){
-        alreadySeen = ((RadioButton) view).isChecked();
-    }
-    public void onRadioButtonClicked2 (View view){
 
-        wantSee = ((RadioButton) view).isChecked();
-    }
-    public void onRadioButtonClicked3 (View view){
-
-        doNot = ((RadioButton) view).isChecked();
-    }
 
 
 }
